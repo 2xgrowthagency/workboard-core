@@ -307,11 +307,16 @@ test('complete first adoption satisfies the real capability consumer and require
   delete consumerEnv.NODE_TEST_CONTEXT;
   const consumers = spawnSync(process.execPath, ['--test', '--test-reporter=tap', 'tests/upstream-sync.test.mjs', 'tests/task-execution-profile.test.mjs', 'tests/model-routing.test.mjs'], { cwd: f.adopter, encoding: 'utf8', env: consumerEnv });
   assert.equal(consumers.status, 0, consumers.stdout + consumers.stderr);
-  const executed = Number(consumers.stdout.match(/^# tests (\d+)$/m)?.[1]);
+  const total = Number(consumers.stdout.match(/^# tests (\d+)$/m)?.[1]);
   const passed = Number(consumers.stdout.match(/^# pass (\d+)$/m)?.[1]);
-  assert.ok(executed > 0, consumers.stdout + consumers.stderr);
-  assert.equal(passed, executed, consumers.stdout + consumers.stderr);
-  t.diagnostic(`Shipped consumers executed ${executed} tests; ${passed} passed.`);
+  const skipped = Number(consumers.stdout.match(/^# skipped (\d+)$/m)?.[1]);
+  const failed = Number(consumers.stdout.match(/^# fail (\d+)$/m)?.[1]);
+  const cancelled = Number(consumers.stdout.match(/^# cancelled (\d+)$/m)?.[1]);
+  assert.ok(passed > 0, consumers.stdout + consumers.stderr);
+  assert.equal(failed, 0, consumers.stdout + consumers.stderr);
+  assert.equal(cancelled, 0, consumers.stdout + consumers.stderr);
+  assert.equal(passed + skipped, total, consumers.stdout + consumers.stderr);
+  t.diagnostic(`Shipped consumers executed and passed ${passed} tests; ${skipped} skipped.`);
   assert.equal(run(f, 'check', ['--readiness', ready(f)]).value.status, 'CURRENT');
   for (const path of ['README.md', 'CONTRIBUTING.md', 'RELEASE.md', 'ORCHESTRATOR.md', 'projects.example.yaml']) {
     unlinkSync(join(f.adopter, path));

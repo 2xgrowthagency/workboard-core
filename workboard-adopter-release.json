@@ -382,7 +382,7 @@
     },
     {
       "path": "tests/adopter-readiness.test.mjs",
-      "sha256": "a383162ca60296804160748ea9ec4594e8407cbdb0a666fde120ed39cf5a7048",
+      "sha256": "e56df263134c1cc3a345a18c08ad49562e57d0bee097c83504f9e592053a0861",
       "mode": "100644",
       "delivery": "patch"
     },
@@ -538,7 +538,7 @@
     },
     {
       "path": "workboard-capabilities.json",
-      "sha256": "e1ec5364fc19fa782d12c7bdc0e36407e6408c4648e486647a4b79dab838f166",
+      "sha256": "47a5770ac9050fd16aebf0caa63164369346ac7c99200ecf005da63f75a06596",
       "mode": "100644",
       "delivery": "patch"
     }
