@@ -25,6 +25,8 @@ Workboard upgrade.
 9. Reconcile `workboard-capabilities.json`: update protocol/capability versions
    and status, set exactly one last synchronized starter release or full commit,
    verify every evidence list, refresh evidence digests, and inspect the diff.
+   Then regenerate the adopter release manifest using the
+   [Core maintainer procedure](docs/adopter-readiness.md#rollback-and-future-releases).
    `scripts/check-workboard-capabilities.mjs` and the upstream synchronization
    gate must both pass.
 

@@ -28,7 +28,7 @@
     },
     {
       "path": "docs/adopter-readiness.md",
-      "sha256": "402dd140d0bc396cd0155acbc2cd3ef8b18ee1e0df4f840ea78424b338231b4a",
+      "sha256": "b166a64108a462926bc2326741ad875d22e952fc17edb4e08cbb775388cec710",
       "mode": "100644",
       "delivery": "patch"
     },
@@ -40,7 +40,7 @@
     },
     {
       "path": "docs/capability-manifest.md",
-      "sha256": "526f57b30cb29a148ee8434a8e1d66bab488c3d4082112a1fafee5d57b881b08",
+      "sha256": "40c0bba1c136e02799cd3aeaae4efa757fe9e34c1eb96827705c55774835727c",
       "mode": "100644",
       "delivery": "patch"
     },
@@ -520,7 +520,7 @@
     },
     {
       "path": "workboard-capabilities.json",
-      "sha256": "09b4feb3f55e02a04406ed2d86946a2e0a178e1c52e05371e46093d46ea2c7f6",
+      "sha256": "6d96469d4d894c8321daa666fa91602b53a0024e8083f40813d6e2d62eed650e",
       "mode": "100644",
       "delivery": "patch"
     }

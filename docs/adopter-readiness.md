@@ -117,7 +117,8 @@ Unknown fields, versions, duplicate keys and stale bindings are rejected.
 authenticate or certify it. Keep actual readbacks privately and renew the
 declaration on Core head changes.
 
-Every output has `activation_authorized: false`, including current. Activation
+Every JSON conformance or plan report has `activation_authorized: false`,
+including current. Manifest and patch output carry no activation grant. Activation
 requires separate operator approval, all readbacks, independent QA, canaries and
 disabled-scheduler proof. Only the authorized controller enables the chosen
 scheduler; then read back identity/cadence and one bounded cycle. Stop and

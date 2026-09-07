@@ -77,6 +77,13 @@ checkout path, or private repository identity.
 
 ## Clone Adoption
 
+For pinned release onboarding and upgrades, follow the
+[adopter readiness runbook](adopter-readiness.md). Its conformance check requires
+the release's exact portable bytes and modes; locally reconciled capability
+metadata alone does not establish release conformance.
+
+The following procedure describes capability-only adoption for customized clones:
+
 1. Apply the starter change and retain local customizations.
 2. Copy or merge the manifest, schema, validator, tests, and release/adoption
    record.
