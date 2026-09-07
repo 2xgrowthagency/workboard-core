@@ -21,7 +21,7 @@ function keys(value, expected, label) {
   requireThat(Object.keys(value).sort().join('|') === [...expected].sort().join('|'), `${label}: missing or unknown fields`);
 }
 function managedPath(path) {
-  return path === 'workboard-capabilities.json' || (typeof path === 'string'
+  return ['workboard-capabilities.json', 'ORCHESTRATOR.md', 'projects.example.yaml'].includes(path) || (typeof path === 'string'
     && /^(scripts|schemas|docs|templates|tests|skills)\/[a-zA-Z0-9_./-]+$/.test(path)
     && path.split('/').every(part => part && part !== '.' && part !== '..')
     && /\.(mjs|json|md|yaml)$/.test(path));
@@ -50,6 +50,9 @@ function bytesAt(repo, path) {
   }
   return readFileSync(current);
 }
+function modeAt(repo, path) {
+  return lstatSync(join(repo, path)).mode & 0o111 ? '100755' : '100644';
+}
 export function validateManifest(m) {
   keys(m, ['schema_version', 'release', 'protocol_version', 'source_reference', 'compatibility', 'migrations', 'adopter_owned', 'files'], 'manifest');
   requireThat(m.schema_version === 1, 'unsupported manifest schema');
@@ -61,13 +64,14 @@ export function validateManifest(m) {
   requireThat(Array.isArray(m.files) && m.files.length > 0, 'missing file inventory');
   let previous = '';
   for (const file of m.files) {
-    keys(file, ['path', 'sha256', 'delivery'], 'file');
+    keys(file, ['path', 'sha256', 'mode', 'delivery'], 'file');
     requireThat(managedPath(file.path) && file.path > previous, 'unsafe, duplicate, or unordered managed path');
     requireThat(HASH.test(file.sha256), 'invalid compatibility hash');
+    requireThat(['100644', '100755'].includes(file.mode), 'invalid file mode');
     requireThat(file.delivery === (file.path.startsWith('skills/') ? 'workshop' : 'patch'), 'invalid delivery boundary');
     previous = file.path;
   }
-  for (const p of [...m.migrations, 'scripts/workboard-adopter.mjs', 'scripts/check-workboard-thread-title.mjs', 'scripts/linear-single-writer.mjs', 'workboard-capabilities.json']) {
+  for (const p of [...m.migrations, 'ORCHESTRATOR.md', 'projects.example.yaml', 'scripts/workboard-adopter.mjs', 'scripts/check-workboard-thread-title.mjs', 'scripts/linear-single-writer.mjs', 'workboard-capabilities.json']) {
     requireThat(m.files.some(f => f.path === p), `missing required surface: ${p}`);
   }
   return m;
@@ -79,7 +83,7 @@ export function generateManifest(repo) {
   const files = [...new Set(paths)].sort().map(path => {
     const bytes = bytesAt(repo, path);
     requireThat(bytes !== null, `missing release file: ${path}`);
-    return { path, sha256: sha(bytes), delivery: path.startsWith('skills/') ? 'workshop' : 'patch' };
+    return { path, sha256: sha(bytes), mode: modeAt(repo, path), delivery: path.startsWith('skills/') ? 'workshop' : 'patch' };
   });
   return validateManifest({ schema_version: 1, release: capability.starter_sync.release,
     protocol_version: capability.protocol_version, source_reference: capability.starter_sync.source_reference,
@@ -98,14 +102,16 @@ export function loadRelease(core, ref, { baseline = false } = {}) {
     requireThat(meta && ['100644', '100755'].includes(meta[0]) && meta[1] === 'blob', `missing or unsafe release surface: ${path}`);
     return Buffer.from(git(core, ['show', `${ref}:${path}`]));
   }
+  const modes = new Map([...entries].map(([path, meta]) => [path, meta[0]]));
   // Historical pinned Core commits establish first-adoption ancestry only.
   if (baseline && !entries.has(MANIFEST)) {
-    return { files: new Map([...entries.keys()].filter(managedPath).map(path => [path, blob(path)])), commit: ref };
+    return { files: new Map([...entries.keys()].filter(managedPath).map(path => [path, blob(path)])), modes, commit: ref };
   }
   const manifestBytes = blob(MANIFEST);
   const manifest = validateManifest(parseJSON(manifestBytes.toString()));
   const files = new Map(manifest.files.map(file => {
     const bytes = blob(file.path);
+    requireThat(modes.get(file.path) === file.mode, `release mode mismatch: ${file.path}`);
     requireThat(sha(bytes) === file.sha256, `release hash mismatch: ${file.path}`);
     return [file.path, bytes];
   }));
@@ -116,7 +122,7 @@ export function loadRelease(core, ref, { baseline = false } = {}) {
     && capability.compatibility.classification === manifest.compatibility
     && manifest.migrations.includes(capability.starter_sync.adoption_record), 'capability and adoption release coordinates disagree');
   files.set(MANIFEST, manifestBytes);
-  return { manifest, files, commit: ref, digest: sha(manifestBytes) };
+  return { manifest, files, modes, commit: ref, digest: sha(manifestBytes) };
 }
 function readiness(input, release) {
   if (input === undefined) return { missing: [...PREREQUISITES, 'identity_readback', 'single_writer_readback', 'scheduler_readback'], blockers: [] };
@@ -143,7 +149,9 @@ export function inspectAdopter({ repo, release, attestation }) {
   const differences = [];
   for (const [path, desired] of release.files) {
     const actual = bytesAt(repo, path);
-    if (actual === null || sha(actual) !== sha(desired)) differences.push({ path, reason: actual === null ? 'missing' : 'mismatched', actual_sha256: actual === null ? null : sha(actual), expected_sha256: sha(desired) });
+    const actualMode = actual === null ? null : modeAt(repo, path);
+    const expectedMode = release.modes.get(path);
+    if (actual === null || sha(actual) !== sha(desired) || actualMode !== expectedMode) differences.push({ path, reason: actual === null ? 'missing' : 'mismatched', actual_sha256: actual === null ? null : sha(actual), expected_sha256: sha(desired), actual_mode: actualMode, expected_mode: expectedMode });
   }
   const blockers = [...runtime.blockers];
   const adopterManifest = bytesAt(repo, MANIFEST);
@@ -154,13 +162,15 @@ export function inspectAdopter({ repo, release, attestation }) {
   const status = blockers.length ? 'BLOCKED' : differences.length ? 'UPGRADE_REQUIRED' : runtime.missing.length ? 'PARTIAL_NOT_ACTIVE' : 'CURRENT';
   return { schema_version: 1, status, core_commit: release.commit, release: release.manifest.release, manifest_sha256: release.digest, differences, operator_prerequisites: runtime.missing, blockers, activation_authorized: false };
 }
-function patchFile(path, before, after) {
+function patchFile(path, before, after, oldMode, newMode) {
+  const header = `diff --git a/${path} b/${path}\n${before === null ? `new file mode ${newMode}\n` : oldMode !== newMode ? `old mode ${oldMode}\nnew mode ${newMode}\n` : ''}`;
+  if (before !== null && before.equals(after)) return header;
   const oldLines = before === null ? [] : before.toString().split('\n');
   const newLines = after.toString().split('\n');
   requireThat((before === null || oldLines.at(-1) === '') && newLines.at(-1) === '', `patch requires newline-terminated text: ${path}`);
   if (before !== null) oldLines.pop();
   newLines.pop();
-  return `diff --git a/${path} b/${path}\n${before === null ? 'new file mode 100644\n' : ''}--- ${before === null ? '/dev/null' : `a/${path}`}\n+++ b/${path}\n@@ -${oldLines.length ? '1' : '0'},${oldLines.length} +1,${newLines.length} @@\n${oldLines.map(l => `-${l}\n`).join('')}${newLines.map(l => `+${l}\n`).join('')}`;
+  return `${header}--- ${before === null ? '/dev/null' : `a/${path}`}\n+++ b/${path}\n@@ -${oldLines.length ? '1' : '0'},${oldLines.length} +1,${newLines.length} @@\n${oldLines.map(l => `-${l}\n`).join('')}${newLines.map(l => `+${l}\n`).join('')}`;
 }
 export function planUpgrade({ repo, release, previous, attestation }) {
   repo = root(repo);
@@ -173,10 +183,16 @@ export function planUpgrade({ repo, release, previous, attestation }) {
     const path = difference.path;
     const before = bytesAt(repo, path);
     const after = release.files.get(path);
-    if (path.startsWith('skills/')) { workshop.push({ path, expected_sha256: sha(after), reason: 'Workshop proposal/apply receipt required' }); continue; }
     const baseline = previous?.files.get(path);
-    if (before !== null && (!baseline || sha(before) !== sha(baseline))) { blockers.push(`unrecognized_local_content:${path}`); continue; }
-    patches.push(patchFile(path, before, after));
+    const oldMode = before === null ? null : modeAt(repo, path);
+    const newMode = release.modes.get(path);
+    if (before === null && baseline) { blockers.push(`unrecognized_local_removal:${path}`); continue; }
+    const recognized = before === null
+      || (before.equals(after) && oldMode === newMode)
+      || (baseline && before.equals(baseline) && oldMode === previous.modes.get(path));
+    if (!recognized) { blockers.push(`unrecognized_local_content:${path}`); continue; }
+    if (path.startsWith('skills/')) { workshop.push({ path, expected_sha256: sha(after), expected_mode: newMode, reason: 'Workshop proposal/apply receipt required' }); continue; }
+    patches.push(patchFile(path, before, after, oldMode, newMode));
   }
   return { ...report, status: blockers.length ? 'BLOCKED' : report.differences.length ? 'UPGRADE_REQUIRED' : report.status, blockers, workshop, previous_core_commit: previous?.commit ?? null, changes: report.differences.map(d => d.path), patch: blockers.length ? '' : patches.join(''), activation_authorized: false };
 }

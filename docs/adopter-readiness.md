@@ -7,7 +7,7 @@ account, change a queue, apply a patch, push, or enable a scheduler.
 ## Contract and ownership
 
 `workboard-adopter-release.json` schema 1 declares release/protocol versions,
-compatibility, migrations, portable paths and SHA-256 hashes. The normative
+compatibility, migrations, portable paths, Git file modes and SHA-256 hashes. The normative
 parser is `scripts/workboard-adopter.mjs`: unknown fields, duplicate keys,
 unsupported versions, omitted inventory entries, unsafe paths, symlinks and hash
 mismatches fail closed. Operators verify public Core origin and select its full
@@ -20,10 +20,10 @@ files are not read. Existing edits to listed files must match an explicitly
 pinned previous Core version or stop for review. Removed surfaces require a
 separate migration; automatic conflict resolution is forbidden.
 
-Skills use `delivery: workshop`: proposals list required hashes but patches
+Skills use `delivery: workshop`: proposals list required hashes and modes but patches
 exclude them. Use the authorized Skill Workshop proposal/apply workflow for
 source packages and retain its receipt; never hand-edit installed copies.
-Conformance remains stale until these required bytes match.
+Conformance remains stale until these required bytes and executable modes match.
 
 ## Operator prerequisites
 
@@ -68,7 +68,8 @@ node scripts/workboard-adopter.mjs plan --repo <ADOPTER_REVIEW_ROOT> \
 ```
 
 Missing adopter manifest is `BLOCKED` in check mode. Plan permits first adoption:
-absent files may be proposed; existing files must match either the desired
+absent files not present in the pinned baseline may be proposed; locally removed
+baseline files block the complete patch; existing files must match either the desired
 release or the pinned previous Core commit. Historical commits before this
 manifest can establish ancestry. Never promote unknown adopter bytes to a trusted
 baseline. Blocked JSON names exact paths and emits no patch.
