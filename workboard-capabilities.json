@@ -1,17 +1,17 @@
 {
   "$schema": "schemas/workboard-capabilities.schema.json",
   "manifest_schema_version": 1,
-  "protocol_version": "1.4.0",
+  "protocol_version": "1.5.0",
   "compatibility": {
     "classification": "backward-compatible",
     "minimum_reader_schema_version": 1,
     "unknown_capability_policy": "ignore"
   },
   "starter_sync": {
-    "release": "ST-023",
+    "release": "ST-024",
     "commit": null,
-    "source_reference": "https://github.com/2xgrowthagency/workboard-core/issues/59",
-    "adoption_record": "docs/releases/st-023-linear-issue-first-thread-titles.md"
+    "source_reference": "https://github.com/2xgrowthagency/workboard-core/issues/61",
+    "adoption_record": "docs/releases/st-024-adopter-fleet-readiness.md"
   },
   "capabilities": {
     "scheduled_control_cycle": {
@@ -27,7 +27,7 @@
           "tests/workboard-control-cycle.test.mjs"
         ]
       },
-      "evidence_sha256": "8f6ba39d0617ec1e51d4a555608cfb0674e2990b5f8e72b561eaa1bc2111aa7c"
+      "evidence_sha256": "611c3c6cc99360ca6e09127e6dbec8b73613f5ba39f9a48c1ab5ecc02fd787b0"
     },
     "queue_classifier": {
       "status": "supported",
@@ -42,7 +42,7 @@
           "tests/check-workboard-queue.test.mjs"
         ]
       },
-      "evidence_sha256": "b9e238cc0dc5661f7ba053d08008c23a8d0f6b06adc287a865fafd062c233dc0"
+      "evidence_sha256": "bf38a1592000c857d793d8af57d52d4e765f309b85c9503e083b6a4fc29a406f"
     },
     "target_locks": {
       "status": "supported",
@@ -58,7 +58,7 @@
           "tests/integrated-routing-lifecycle.test.mjs"
         ]
       },
-      "evidence_sha256": "43f6cf111cb71078c4ae9336cb71424379493d7f2fa53106dcf53b726acfb136"
+      "evidence_sha256": "76c39a70d92d0b100070ea1926b67a3ed77487a588c6d971fad5b090a46081c3"
     },
     "completion_callbacks": {
       "status": "supported",
@@ -74,7 +74,7 @@
           "tests/integrated-routing-lifecycle.test.mjs"
         ]
       },
-      "evidence_sha256": "383fd188bdb26f9bd6784e7e70bf5abca72d15be18f0cb90edd796f22195ba11"
+      "evidence_sha256": "2b50614f0ed124e480b5810f8f88363d04181b79eef7ad35e22179591c74254b"
     },
     "independent_qa": {
       "status": "supported",
@@ -91,7 +91,7 @@
           "tests/integrated-routing-lifecycle.test.mjs"
         ]
       },
-      "evidence_sha256": "16aafa11949c5e9c59c7057ece2c53a5d9fa27995da8d6586fda885f78d74a8e"
+      "evidence_sha256": "00369d27a5c8f331b537cef0676b8f1f807931ea4b36058c9f34a6ea12aefdfd"
     },
     "qa_publication": {
       "status": "supported",
@@ -107,7 +107,7 @@
           "tests/live-task-visibility-docs.test.mjs"
         ]
       },
-      "evidence_sha256": "0b457ddac7714206f93410a34491d259156d8099fca45b9d1766af2cf23bbe5a"
+      "evidence_sha256": "8766bf801398070f11d094afe924ad69b8c948c0173e5a1b7e94e04857f73e4b"
     },
     "dependency_promotion": {
       "status": "supported",
@@ -186,7 +186,7 @@
           "tests/git-preflight-docs.test.mjs"
         ]
       },
-      "evidence_sha256": "c4f7abc790c72638d2b4b840dcc96bb0486e52e28e76dda791dbd840951fd41c"
+      "evidence_sha256": "b6da29f9c7a98cb32c7e5c967d28167221cd80e3df3c0d2b2b0f5fac101f9fb6"
     },
     "known_issues_recovery": {
       "status": "supported",
@@ -233,7 +233,7 @@
           "tests/check-task-packet.test.mjs"
         ]
       },
-      "evidence_sha256": "fa9cee03e93ec7383cb0d3733bcd1873ddc4edd0940370191728c77881694399"
+      "evidence_sha256": "4c0f777560760dc54e363c3993bd046c06f2988051b880dd58d5aaa2d498da8f"
     },
     "execution_environment_routing": {
       "status": "supported",
@@ -251,7 +251,7 @@
           "tests/check-task-packet.test.mjs"
         ]
       },
-      "evidence_sha256": "115667516f9964cf126545c8c49879f3af63ca44ef2710e88621d063c8375762"
+      "evidence_sha256": "32303d23b44b91ae70512b4abcdf15311aa93bb6f7a300f2660a09bf49df7f9f"
     },
     "task_execution_profile": {
       "status": "supported",
@@ -269,7 +269,7 @@
           "tests/check-task-packet.test.mjs"
         ]
       },
-      "evidence_sha256": "6d8fac73032d5c98b2fbdd42f395b824117fc557d14fbb824513171f4d265d95"
+      "evidence_sha256": "c6faed83fc780e05de3686156def31e14443891fbfb9ab9015d6f24b52fad9d3"
     },
     "linear_single_writer_engine": {
       "status": "supported",
@@ -285,7 +285,7 @@
           "tests/linear-single-writer.test.mjs"
         ]
       },
-      "evidence_sha256": "5d59815a1ee011d70da298f158fc0dcc5495eab751088274e1ae77d3b42dc4f5"
+      "evidence_sha256": "9bb13caa33f43ef0b0d5498d15eb9d0ca712052c31ec94a513b55b6ec088dba8"
     },
     "linear_single_writer": {
       "status": "not_implemented",
@@ -298,7 +298,7 @@
         ],
         "tests": []
       },
-      "evidence_sha256": "aee6a623f3ca133aea4f24e84ecdbfafecad011245d625997a9e6a45238344c9"
+      "evidence_sha256": "ae689d8a94de1ebc0a2cc08c09fa6ae11bb3c8a3f2da34f640872e4ace288b17"
     },
     "linear_issue_first_thread_titles": {
       "status": "supported",
@@ -314,7 +314,7 @@
           "tests/workboard-thread-title.test.mjs"
         ]
       },
-      "evidence_sha256": "63aa3725e322d93fc0e91984a65208882c25b125d0a046715ba3a423e708542b"
+      "evidence_sha256": "e68dc08c1384d2016eb1b58f33372ca128fb378598509aa49644dcb3876dfcaa"
     },
     "cloud_dispatch_receipts": {
       "status": "supported",
@@ -333,7 +333,7 @@
           "tests/check-task-packet.test.mjs"
         ]
       },
-      "evidence_sha256": "05f97f6b9cfe6ac0470d4674a6e541a627dadd9529c448617f34f4d78313ba04"
+      "evidence_sha256": "a0a8a0f5a49130e85875cb58a063c0b50561d97c3577ccade1d5ce66edefd0d5"
     },
     "upstream_synchronization": {
       "status": "supported",
@@ -348,7 +348,22 @@
           "tests/upstream-sync.test.mjs"
         ]
       },
-      "evidence_sha256": "9b70a21b26264b20d622860b66bdf6aeea840e5a7f4ccfcf8ba928dbde5d302c"
+      "evidence_sha256": "c877fbea9dde0b0a9be8a61cdaa6aa805d439edbb510390edb4cbaee48892223"
+    },
+    "adopter_readiness": {
+      "status": "supported",
+      "version": "1.0.0",
+      "summary": "Pinned portable release conformance and read-only upgrade proposals preserve private ownership and separate code availability from activation.",
+      "evidence": {
+        "files": [
+          "scripts/workboard-adopter.mjs",
+          "docs/adopter-readiness.md"
+        ],
+        "tests": [
+          "tests/adopter-readiness.test.mjs"
+        ]
+      },
+      "evidence_sha256": "662770713fb8d47dea8e2c3cb25b5be434beb2135b448e8ac705b8485a023b5b"
     }
   }
 }

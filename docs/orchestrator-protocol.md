@@ -1,7 +1,7 @@
 # Workboard Orchestrator Protocol
 
-Protocol version: `1.3.0`. Before routing, a clone or automation may validate
-its machine-readable capability inventory with
+The protocol version is declared in `workboard-capabilities.json`. Before
+routing, a clone or automation may validate its capability inventory with
 `node scripts/check-workboard-capabilities.mjs --repo <WORKBOARD_PATH>`. Treat a
 missing, rejected, or stale manifest as unknown capability state, not permission
 to assume a feature exists. The schema, compatibility, starter synchronization,
@@ -11,6 +11,13 @@ clone adoption, and evidence-digest rules are defined in
 Use this document as the standing instruction for your local orchestrator, whether it runs in Codex Desktop, Claude Desktop, Claude Code, OpenClaw, or another agent.
 
 ## Scheduled control-cycle layering
+
+Adopter conformance uses `workboard-adopter-release.json` and
+`docs/adopter-readiness.md`. `scripts/workboard-adopter.mjs check` inspects a pinned
+Core release; `plan` emits a patch and separate Workshop proposals without writes.
+Missing prerequisites leave current code `PARTIAL_NOT_ACTIVE`; conformance never
+authorizes activation. Private identities, mappings, queues and authority remain
+adopter-owned.
 
 Scheduled and manually triggered polling use
 `skills/workboard-control-cycle/SKILL.md` as the portable entrypoint. Load

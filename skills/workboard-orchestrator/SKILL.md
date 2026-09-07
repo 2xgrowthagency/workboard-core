@@ -1,14 +1,14 @@
 ---
 name: workboard-orchestrator
-description: Run a Workboard root orchestrator loop: classify queue state, enforce per-target locks, resolve Local or Worktree execution, delegate local worker and independent QA tasks, reconcile one-shot callbacks, and move packets through QA, review, rework, or blocker states.
+description: "Run or configure a Workboard root orchestrator loop with scoped delegation, target locks, independent QA, and proof-based queue transitions."
 ---
 
 # Workboard Orchestrator Skill
 
 Use this skill when asked to run, configure, or explain a Workboard local orchestrator.
 
-This skill implements Workboard protocol `1.3.0`. Read
-`workboard-capabilities.json` for machine-readable capability status and run
+Read `workboard-capabilities.json` for the protocol version and machine-readable
+capability status, and run
 `node scripts/check-workboard-capabilities.mjs --repo <WORKBOARD_PATH>` before
 relying on that metadata in a customized clone. A rejected manifest means the
 clone's capability state is unknown until its evidence is reconciled.
@@ -26,6 +26,12 @@ adoption backlink and do not need fork ancestry. The ST-013 gate also requires
 a refreshed, valid capability manifest whenever synchronized evidence changes.
 
 ## Start here
+
+For adopter onboarding/upgrades, read `docs/adopter-readiness.md` and run
+`scripts/workboard-adopter.mjs check` against the operator-selected Core commit.
+Review `plan` output; route skill source edits through authorized Workshop
+proposal/apply governance. Missing operator prerequisites remain partial;
+matching portable code never authorizes recurring claims or activation.
 
 For scheduled or manually triggered polling, begin with
 `skills/workboard-control-cycle/SKILL.md`. It is the host-neutral entrypoint:

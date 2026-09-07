@@ -1,5 +1,9 @@
 # Workboard Core
 
+For versioned adopter onboarding and upgrades, use the
+[adopter readiness runbook](docs/adopter-readiness.md) for conformance checks and
+reviewable upgrade proposals without activation.
+
 The shared protocol, reusable orchestration files, and capability status for
 Workboard deployments.
 
@@ -29,8 +33,8 @@ default. High reasoning requires one of four machine-recognized task categories:
 `unusually_complex`. `gpt-5.6-luna` requires exact `bounded_high_volume`
 eligibility and independent verification.
 
-This release declares Workboard protocol `1.4.0`. The portable capability
-inventory is `workboard-capabilities.json`; validate it with
+The protocol version and portable capability inventory are declared in
+`workboard-capabilities.json`; validate it with
 `node scripts/check-workboard-capabilities.mjs --repo "$PWD"`. It records the
 current Core release, reusable capabilities, and implementation status so an
 adopter can distinguish supported behavior from tracked but unimplemented work.

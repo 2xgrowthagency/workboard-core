@@ -1,5 +1,14 @@
 # Automation Examples
 
+## Adopter release proposals
+
+On an operator-requested release check, run `scripts/workboard-adopter.mjs plan`
+with an explicit adopter review root, Core root and immutable Core commit.
+Review JSON blockers and Workshop proposals before generating the patch. Reuse
+one upgrade PR per adopter/release. Follow `docs/adopter-readiness.md` for exact
+commands and private registry ownership; this discovery path creates no recurring
+poller and grants no activation or live queue authority.
+
 These are starting points. Edit paths, project names, cadence, and model settings for your own setup.
 
 For app-native stalls, stale UI, callback delivery, saved-project/path,

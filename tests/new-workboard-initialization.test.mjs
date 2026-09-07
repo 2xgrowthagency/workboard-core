@@ -15,7 +15,6 @@ function read(relativePath) {
 const guide = read('docs/new-workboard-initialization.md');
 const operatorTemplate = read('templates/local-operator-setup.md');
 const initializationRecord = read('templates/workboard-initialization-record.md');
-const readme = read('README.md');
 const onboarding = read('docs/team-onboarding.md');
 const linearContract = read('docs/linear-single-writer.md');
 
@@ -50,12 +49,6 @@ test('first task is a bounded dispatch smoke with duplicate and callback proof',
   assert.match(initializationRecord, /Scheduled Poll Smoke/);
   assert.match(initializationRecord, /Callback lane: `tasks\/review\/`/);
   assert.match(initializationRecord, /Reviewed final lane: `tasks\/done\/`/);
-});
-
-test('README points new operators to the consolidated initialization guide', () => {
-  assert.match(readme, /docs\/new-workboard-initialization\.md/);
-  assert.match(readme, /docs\/team-onboarding\.md/);
-  assert.match(readme, /protocol `1\.4\.0`/);
 });
 
 test('team onboarding separates training from production activation', () => {

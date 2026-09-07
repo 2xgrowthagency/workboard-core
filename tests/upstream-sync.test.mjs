@@ -3,6 +3,7 @@
 import assert from 'node:assert/strict';
 import {
   chmodSync,
+  copyFileSync,
   mkdtempSync,
   mkdirSync,
   readFileSync,
@@ -310,12 +311,15 @@ test('CLI emits exactly one status for absolute and relative invocation from pat
 
 test('CLI main detection survives the macOS /tmp canonical path alias', {
   skip: process.platform !== 'darwin' || realpathSync('/tmp') === '/tmp',
-}, () => {
+}, (t) => {
   const input = fixture({ parent: '/tmp' });
-  const script = realpathSync(fileURLToPath(new URL('../scripts/check-upstream-sync.mjs', import.meta.url)));
-  const canonicalTmp = realpathSync('/tmp');
-  assert.ok(script.startsWith(`${canonicalTmp}${sep}`), `script is not under the canonical temporary root: ${script}`);
-  const alias = resolve('/tmp', relative(canonicalTmp, script));
+  const runner = mkdtempSync('/tmp/workboard-validator-');
+  t.after(() => rmSync(runner, { recursive: true, force: true }));
+  for (const name of ['check-upstream-sync.mjs', 'check-workboard-capabilities.mjs']) {
+    copyFileSync(fileURLToPath(new URL(`../scripts/${name}`, import.meta.url)), join(runner, name));
+  }
+  const alias = join(runner, 'check-upstream-sync.mjs');
+  assert.notEqual(alias, realpathSync(alias));
   const result = cli(alias, input);
   assert.equal(result.status, 0, result.stderr);
   assertSingleStatus(result, 'VALID');
