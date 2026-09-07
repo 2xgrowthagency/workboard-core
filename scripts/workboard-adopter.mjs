@@ -51,7 +51,7 @@ function bytesAt(repo, path) {
   return readFileSync(current);
 }
 function modeAt(repo, path) {
-  return lstatSync(join(repo, path)).mode & 0o111 ? '100755' : '100644';
+  return lstatSync(join(repo, path)).mode & 0o100 ? '100755' : '100644';
 }
 export function validateManifest(m) {
   keys(m, ['schema_version', 'release', 'protocol_version', 'source_reference', 'compatibility', 'migrations', 'adopter_owned', 'files'], 'manifest');
@@ -115,7 +115,10 @@ export function loadRelease(core, ref, { baseline = false } = {}) {
     requireThat(sha(bytes) === file.sha256, `release hash mismatch: ${file.path}`);
     return [file.path, bytes];
   }));
-  for (const path of entries.keys()) if (managedPath(path)) requireThat(files.has(path), `unlisted release surface: ${path}`);
+  for (const path of entries.keys()) if (managedPath(path) && !files.has(path)) {
+    requireThat(baseline, `unlisted release surface: ${path}`);
+    files.set(path, blob(path));
+  }
   const capability = parseJSON(files.get('workboard-capabilities.json').toString());
   requireThat(capability.protocol_version === manifest.protocol_version && capability.starter_sync.release === manifest.release
     && capability.starter_sync.source_reference === manifest.source_reference

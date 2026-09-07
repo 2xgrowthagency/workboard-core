@@ -123,6 +123,56 @@ test('legacy Core baseline permits first manifest without adopting unknown bytes
   const r = run(f, 'plan', ['--previous-core-ref', legacy]); assert.equal(r.status, 0, r.stderr);
   assert.ok(r.value.changes.includes(MANIFEST));
 });
+test('historical manifest omissions preserve pinned ancestry without weakening target inventory', t => {
+  const f = setup(t); adopt(f);
+  const rootDocs = ['README.md', 'CONTRIBUTING.md', 'RELEASE.md'];
+  const manifest = generateManifest(f.core);
+  manifest.files = manifest.files.filter(file => !rootDocs.includes(file.path));
+  const historicalManifest = JSON.stringify(manifest, null, 2) + '\n';
+  put(f.core, MANIFEST, historicalManifest);
+  put(f.adopter, MANIFEST, historicalManifest);
+  const previous = commit(f.core);
+  f.ref = previous;
+  const rejectedTarget = run(f, 'plan');
+  assert.equal(rejectedTarget.status, 2);
+  assert.match(rejectedTarget.value.error, /unlisted release surface:/);
+  for (const path of rootDocs) put(f.core, path, `updated portable contract ${path}\n`);
+  put(f.core, MANIFEST, JSON.stringify(generateManifest(f.core), null, 2) + '\n');
+  f.ref = commit(f.core);
+  for (const path of rootDocs) {
+    const before = readFileSync(join(f.adopter, path));
+    for (const change of ['edit', 'remove']) {
+      if (change === 'edit') put(f.adopter, path, 'unknown adopter content\n');
+      else unlinkSync(join(f.adopter, path));
+      const blocked = run(f, 'plan', ['--previous-core-ref', previous]);
+      assert.equal(blocked.status, 2, blocked.stderr);
+      assert.equal(blocked.value.patch, '');
+      assert.ok(blocked.value.blockers.includes(`${change === 'edit' ? 'unrecognized_local_content' : 'unrecognized_local_removal'}:${path}`));
+      put(f.adopter, path, before);
+    }
+  }
+  const proposal = run(f, 'plan', ['--previous-core-ref', previous]);
+  assert.equal(proposal.status, 0, proposal.stderr);
+  const patch = join(f.home, 'historical.patch'); writeFileSync(patch, proposal.value.patch);
+  git(f.adopter, 'apply', patch);
+  assert.equal(run(f, 'check', ['--readiness', ready(f)]).value.status, 'CURRENT');
+  assert.equal(run(f, 'plan', ['--previous-core-ref', previous]).value.patch, '');
+});
+test('historical baselines still reject declared hash and mode drift', t => {
+  for (const change of ['hash', 'mode']) {
+    const f = setup(t);
+    const manifest = generateManifest(f.core);
+    manifest.files = manifest.files.filter(file => !['README.md', 'CONTRIBUTING.md', 'RELEASE.md'].includes(file.path));
+    put(f.core, MANIFEST, JSON.stringify(manifest, null, 2) + '\n');
+    const path = 'scripts/check-workboard-thread-title.mjs';
+    if (change === 'hash') put(f.core, path, 'unhashed historical content\n');
+    else chmodSync(join(f.core, path), 0o644);
+    const previous = commit(f.core);
+    const result = run(f, 'plan', ['--previous-core-ref', previous]);
+    assert.equal(result.status, 2);
+    assert.equal(result.value.error, `release ${change} mismatch: ${path}`);
+  }
+});
 test('symlinked files and parent directories fail before following private data', t => {
   const f = setup(t); adopt(f);
   unlinkSync(join(f.adopter, 'scripts/check-workboard-thread-title.mjs'));
@@ -217,6 +267,31 @@ test('pinned release rejects executable mode drift', t => {
   const f = setup(t); chmodSync(join(f.core, 'scripts/check-workboard-thread-title.mjs'), 0o644); f.ref = commit(f.core);
   assert.equal(run(f, 'check').status, 2);
 });
+test('owner execute removal changes conformance and generated Git modes', t => {
+  const f = setup(t); adopt(f); const previous = f.ref;
+  const path = 'scripts/check-workboard-thread-title.mjs';
+  assert.equal(run(f, 'check', ['--readiness', ready(f)]).value.status, 'CURRENT');
+  for (const repo of [f.adopter, f.core]) {
+    const chmod = spawnSync('chmod', ['u-x', join(repo, path)], { encoding: 'utf8' });
+    assert.equal(chmod.status, 0, chmod.stderr);
+    assert.equal(statSync(join(repo, path)).mode & 0o777, 0o655);
+  }
+  const check = run(f, 'check', ['--readiness', ready(f)]);
+  assert.equal(check.value.status, 'UPGRADE_REQUIRED');
+  assert.equal(check.value.differences.find(d => d.path === path).actual_mode, '100644');
+  const plan = run(f, 'plan', ['--previous-core-ref', f.ref]);
+  assert.equal(plan.status, 2); assert.equal(plan.value.patch, '');
+  assert.ok(plan.value.blockers.includes(`unrecognized_local_content:${path}`));
+  const generated = spawnSync(process.execPath, [script, 'manifest', '--repo', f.core], { encoding: 'utf8' });
+  assert.equal(generated.status, 0, generated.stderr);
+  assert.equal(JSON.parse(generated.stdout).files.find(file => file.path === path).mode, '100644');
+  put(f.core, MANIFEST, generated.stdout); f.ref = commit(f.core);
+  assert.match(git(f.core, 'ls-tree', f.ref, path), /^100644 blob /);
+  const proposal = run(f, 'plan', ['--previous-core-ref', previous]); assert.equal(proposal.status, 0, proposal.stderr);
+  const patch = join(f.home, 'owner-mode.patch'); writeFileSync(patch, proposal.value.patch);
+  git(f.adopter, 'apply', patch);
+  assert.equal(run(f, 'check', ['--readiness', ready(f)]).value.status, 'CURRENT');
+});
 test('complete first adoption satisfies the real capability consumer and requires root evidence', t => {
   const f = setup(t);
   for (const path of ['README.md', 'CONTRIBUTING.md', 'RELEASE.md']) unlinkSync(join(f.core, path));
@@ -228,8 +303,15 @@ test('complete first adoption satisfies the real capability consumer and require
   adopt(f);
   const result = spawnSync(process.execPath, [join(f.adopter, 'scripts/check-workboard-capabilities.mjs'), '--repo', f.adopter], { encoding: 'utf8' });
   assert.equal(result.status, 0, result.stdout + result.stderr);
-  const consumers = spawnSync(process.execPath, ['--test', 'tests/upstream-sync.test.mjs', 'tests/task-execution-profile.test.mjs', 'tests/model-routing.test.mjs'], { cwd: f.adopter, encoding: 'utf8' });
+  const consumerEnv = { ...process.env };
+  delete consumerEnv.NODE_TEST_CONTEXT;
+  const consumers = spawnSync(process.execPath, ['--test', '--test-reporter=tap', 'tests/upstream-sync.test.mjs', 'tests/task-execution-profile.test.mjs', 'tests/model-routing.test.mjs'], { cwd: f.adopter, encoding: 'utf8', env: consumerEnv });
   assert.equal(consumers.status, 0, consumers.stdout + consumers.stderr);
+  const executed = Number(consumers.stdout.match(/^# tests (\d+)$/m)?.[1]);
+  const passed = Number(consumers.stdout.match(/^# pass (\d+)$/m)?.[1]);
+  assert.ok(executed > 0, consumers.stdout + consumers.stderr);
+  assert.equal(passed, executed, consumers.stdout + consumers.stderr);
+  t.diagnostic(`Shipped consumers executed ${executed} tests; ${passed} passed.`);
   assert.equal(run(f, 'check', ['--readiness', ready(f)]).value.status, 'CURRENT');
   for (const path of ['README.md', 'CONTRIBUTING.md', 'RELEASE.md', 'ORCHESTRATOR.md', 'projects.example.yaml']) {
     unlinkSync(join(f.adopter, path));

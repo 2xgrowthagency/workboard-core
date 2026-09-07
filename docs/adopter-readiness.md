@@ -71,7 +71,10 @@ Missing adopter manifest is `BLOCKED` in check mode. Plan permits first adoption
 absent files not present in the pinned baseline may be proposed; locally removed
 baseline files block the complete patch; existing files must match either the desired
 release or the pinned previous Core commit. Historical commits before this
-manifest can establish ancestry. Never promote unknown adopter bytes to a trusted
+manifest can establish ancestry. Historical manifests may omit paths added to
+the managed inventory later; the pinned historical tree supplies those baseline
+bytes and modes, while declared hashes and modes remain verified. Target releases
+must list every managed path. Never promote unknown adopter bytes to a trusted
 baseline. Blocked JSON names exact paths and emits no patch.
 
 Review blockers, paths, Workshop proposals and patch. In the approved feature

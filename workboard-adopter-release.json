@@ -46,7 +46,7 @@
     },
     {
       "path": "docs/adopter-readiness.md",
-      "sha256": "b166a64108a462926bc2326741ad875d22e952fc17edb4e08cbb775388cec710",
+      "sha256": "c7008f991d6db9f0c0ac6c5aa019f5affc46147b1a76ec17e78ce407d95b9326",
       "mode": "100644",
       "delivery": "patch"
     },
@@ -328,7 +328,7 @@
     },
     {
       "path": "scripts/workboard-adopter.mjs",
-      "sha256": "29a1df2fafaa9b4a7bafb140e377b526506d3b70334c6527812278945bf8c73f",
+      "sha256": "f50b3a9dc7269714782279123d7a9cdaedfeb44c997e26a4af9686ee2a2e5cee",
       "mode": "100644",
       "delivery": "patch"
     },
@@ -382,7 +382,7 @@
     },
     {
       "path": "tests/adopter-readiness.test.mjs",
-      "sha256": "343abc7d9603117d2458d53c2d52b71424a95226deb651f0e1a1498ed4ff24b6",
+      "sha256": "a383162ca60296804160748ea9ec4594e8407cbdb0a666fde120ed39cf5a7048",
       "mode": "100644",
       "delivery": "patch"
     },
@@ -538,7 +538,7 @@
     },
     {
       "path": "workboard-capabilities.json",
-      "sha256": "edfd374b9eade56cb0464efd6808e92ed239113bd52590dbde4aebc4b4731b9b",
+      "sha256": "e1ec5364fc19fa782d12c7bdc0e36407e6408c4648e486647a4b79dab838f166",
       "mode": "100644",
       "delivery": "patch"
     }
