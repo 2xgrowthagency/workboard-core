@@ -46,7 +46,7 @@
     },
     {
       "path": "docs/adopter-readiness.md",
-      "sha256": "c7008f991d6db9f0c0ac6c5aa019f5affc46147b1a76ec17e78ce407d95b9326",
+      "sha256": "106eacf358f49fbbc90fce0e63ee7c0477d470a8a6f90e2d7640fd6c00e0697a",
       "mode": "100644",
       "delivery": "patch"
     },
@@ -112,7 +112,7 @@
     },
     {
       "path": "docs/orchestrator-protocol.md",
-      "sha256": "aa2e7b98462f5e80412631b1baa5d779c0fc8632d5c1d509d72c4cfdc0d5e234",
+      "sha256": "e3b403c775973c291f8a6ec08f534735f34e00f781a70fb1b3aff0649a603a3b",
       "mode": "100644",
       "delivery": "patch"
     },
@@ -190,7 +190,7 @@
     },
     {
       "path": "docs/releases/st-024-adopter-fleet-readiness.md",
-      "sha256": "a7a71dd35335527f156104b531864f0e7786964cb4e8c0a99f33e8bd30458239",
+      "sha256": "809f3625dfbdb1f9704726d6eb08bbd36555cdf72152d19a746b2b8b73b1d4f3",
       "mode": "100644",
       "delivery": "patch"
     },
@@ -328,7 +328,7 @@
     },
     {
       "path": "scripts/workboard-adopter.mjs",
-      "sha256": "f50b3a9dc7269714782279123d7a9cdaedfeb44c997e26a4af9686ee2a2e5cee",
+      "sha256": "167555a8ba1bf48d04f6ccea0ba185f0ca7cc8d513a4e0d74a0698db9ca73a8e",
       "mode": "100644",
       "delivery": "patch"
     },
@@ -340,7 +340,7 @@
     },
     {
       "path": "skills/workboard-orchestrator/SKILL.md",
-      "sha256": "96160ef38b7c83825044fe363581c29dd3b09d1f1ce498eafcda0d3710af70ae",
+      "sha256": "b17ce7c3a1be4c07e2cd47621360ba16be35faee07f42bb4f6d07858e10d1af8",
       "mode": "100644",
       "delivery": "workshop"
     },
@@ -538,7 +538,7 @@
     },
     {
       "path": "workboard-capabilities.json",
-      "sha256": "47a5770ac9050fd16aebf0caa63164369346ac7c99200ecf005da63f75a06596",
+      "sha256": "1f0a96e6cb7b80cdaf354c61d5084b734ea2acfd5d555500067e2e7eac011e8d",
       "mode": "100644",
       "delivery": "patch"
     }

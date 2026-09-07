@@ -103,7 +103,7 @@ export function loadRelease(core, ref, { baseline = false } = {}) {
     return Buffer.from(git(core, ['show', `${ref}:${path}`]));
   }
   const modes = new Map([...entries].map(([path, meta]) => [path, meta[0]]));
-  // Historical pinned Core commits establish first-adoption ancestry only.
+  // Pinned historical trees supply baseline bytes even before release manifests.
   if (baseline && !entries.has(MANIFEST)) {
     return { files: new Map([...entries.keys()].filter(managedPath).map(path => [path, blob(path)])), modes, commit: ref };
   }

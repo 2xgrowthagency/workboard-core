@@ -27,7 +27,7 @@
           "tests/workboard-control-cycle.test.mjs"
         ]
       },
-      "evidence_sha256": "5ad6075290a8e8285967ffac14df4d081e4f0152561758b6b03428b2fec97a31"
+      "evidence_sha256": "611c3c6cc99360ca6e09127e6dbec8b73613f5ba39f9a48c1ab5ecc02fd787b0"
     },
     "queue_classifier": {
       "status": "supported",
@@ -42,7 +42,7 @@
           "tests/check-workboard-queue.test.mjs"
         ]
       },
-      "evidence_sha256": "28cf0b46098904dbd11a3cba940fef6dc378346cb4a09939ddb9887032aeedbd"
+      "evidence_sha256": "bf38a1592000c857d793d8af57d52d4e765f309b85c9503e083b6a4fc29a406f"
     },
     "target_locks": {
       "status": "supported",
@@ -58,7 +58,7 @@
           "tests/integrated-routing-lifecycle.test.mjs"
         ]
       },
-      "evidence_sha256": "5c44c07895cb778d6dd5e0f9a33863fc74ebc72135482e03eeaa9e103c75287f"
+      "evidence_sha256": "76c39a70d92d0b100070ea1926b67a3ed77487a588c6d971fad5b090a46081c3"
     },
     "completion_callbacks": {
       "status": "supported",
@@ -91,7 +91,7 @@
           "tests/integrated-routing-lifecycle.test.mjs"
         ]
       },
-      "evidence_sha256": "e8dd182d9e26f92544bc3ece66329df887197832f0aa30655dbfbd8a335a006b"
+      "evidence_sha256": "00369d27a5c8f331b537cef0676b8f1f807931ea4b36058c9f34a6ea12aefdfd"
     },
     "qa_publication": {
       "status": "supported",
@@ -107,7 +107,7 @@
           "tests/live-task-visibility-docs.test.mjs"
         ]
       },
-      "evidence_sha256": "4066e8a9feab2851ba9b63cf6878d409c6ece6160872f9acabc41644d0b393c2"
+      "evidence_sha256": "8766bf801398070f11d094afe924ad69b8c948c0173e5a1b7e94e04857f73e4b"
     },
     "dependency_promotion": {
       "status": "supported",
@@ -186,7 +186,7 @@
           "tests/git-preflight-docs.test.mjs"
         ]
       },
-      "evidence_sha256": "299b4002e97f1adb994d69a97be27ad234f835591aec23b0004e0369a4476d14"
+      "evidence_sha256": "b6da29f9c7a98cb32c7e5c967d28167221cd80e3df3c0d2b2b0f5fac101f9fb6"
     },
     "known_issues_recovery": {
       "status": "supported",
@@ -251,7 +251,7 @@
           "tests/check-task-packet.test.mjs"
         ]
       },
-      "evidence_sha256": "7c81c19d6fa70aed5e1420d2be9bcc6a54e9bb0c38da5cca5b462c48ee1bcfd1"
+      "evidence_sha256": "32303d23b44b91ae70512b4abcdf15311aa93bb6f7a300f2660a09bf49df7f9f"
     },
     "task_execution_profile": {
       "status": "supported",
@@ -285,7 +285,7 @@
           "tests/linear-single-writer.test.mjs"
         ]
       },
-      "evidence_sha256": "777d04b898dcfa2bbca45bffa190b0e4a30d6ec71c0c7f029c22bc2f9e9bc756"
+      "evidence_sha256": "9bb13caa33f43ef0b0d5498d15eb9d0ca712052c31ec94a513b55b6ec088dba8"
     },
     "linear_single_writer": {
       "status": "not_implemented",
@@ -298,7 +298,7 @@
         ],
         "tests": []
       },
-      "evidence_sha256": "fd62c20301a6d1c3116fdbdd6fb27c0b5a2f4799b1292711a7e6a5a0fa5ac335"
+      "evidence_sha256": "ae689d8a94de1ebc0a2cc08c09fa6ae11bb3c8a3f2da34f640872e4ace288b17"
     },
     "linear_issue_first_thread_titles": {
       "status": "supported",
@@ -314,7 +314,7 @@
           "tests/workboard-thread-title.test.mjs"
         ]
       },
-      "evidence_sha256": "95318f27472ee954d045b6c3357ffeeec248d78e4370852728ba480abbf0442e"
+      "evidence_sha256": "e68dc08c1384d2016eb1b58f33372ca128fb378598509aa49644dcb3876dfcaa"
     },
     "cloud_dispatch_receipts": {
       "status": "supported",
@@ -333,7 +333,7 @@
           "tests/check-task-packet.test.mjs"
         ]
       },
-      "evidence_sha256": "ffc77ada641d9a6138adbe5be6c6b1169289528b426cbc412bb5cfc17aa841a6"
+      "evidence_sha256": "a0a8a0f5a49130e85875cb58a063c0b50561d97c3577ccade1d5ce66edefd0d5"
     },
     "upstream_synchronization": {
       "status": "supported",
@@ -363,7 +363,7 @@
           "tests/adopter-readiness.test.mjs"
         ]
       },
-      "evidence_sha256": "e736bb66d67c48a47178b863255e38d6be8d9689f5e7d68c1e18ae02d041cb1e"
+      "evidence_sha256": "662770713fb8d47dea8e2c3cb25b5be434beb2135b448e8ac705b8485a023b5b"
     }
   }
 }

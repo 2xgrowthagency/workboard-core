@@ -7,8 +7,8 @@ description: "Run or configure a Workboard root orchestrator loop with scoped de
 
 Use this skill when asked to run, configure, or explain a Workboard local orchestrator.
 
-This skill implements Workboard protocol `1.5.0`. Read
-`workboard-capabilities.json` for machine-readable capability status and run
+Read `workboard-capabilities.json` for the protocol version and machine-readable
+capability status, and run
 `node scripts/check-workboard-capabilities.mjs --repo <WORKBOARD_PATH>` before
 relying on that metadata in a customized clone. A rejected manifest means the
 clone's capability state is unknown until its evidence is reconciled.

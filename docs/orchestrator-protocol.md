@@ -1,7 +1,7 @@
 # Workboard Orchestrator Protocol
 
-Protocol version: `1.5.0`. Before routing, a clone or automation may validate
-its machine-readable capability inventory with
+The protocol version is declared in `workboard-capabilities.json`. Before
+routing, a clone or automation may validate its capability inventory with
 `node scripts/check-workboard-capabilities.mjs --repo <WORKBOARD_PATH>`. Treat a
 missing, rejected, or stale manifest as unknown capability state, not permission
 to assume a feature exists. The schema, compatibility, starter synchronization,

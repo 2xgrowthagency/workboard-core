@@ -11,7 +11,9 @@ compatibility, migrations, portable paths, Git file modes and SHA-256 hashes. Th
 parser is `scripts/workboard-adopter.mjs`: unknown fields, duplicate keys,
 unsupported versions, omitted inventory entries, unsafe paths, symlinks and hash
 mismatches fail closed. Operators verify public Core origin and select its full
-commit SHA; hashes prove bytes, not author identity.
+commit SHA; hashes prove bytes, not author identity. Git executable mode follows
+the owner-execute bit; group or other execute bits do not preserve conformance
+when owner execution is removed.
 
 Core owns listed scripts, schemas, templates, tests and documentation. Adopters
 retain `AGENTS.md`, `projects.yaml`, private adapters, stable member IDs, labels,
@@ -68,9 +70,11 @@ node scripts/workboard-adopter.mjs plan --repo <ADOPTER_REVIEW_ROOT> \
 ```
 
 Missing adopter manifest is `BLOCKED` in check mode. Plan permits first adoption:
-absent files not present in the pinned baseline may be proposed; locally removed
-baseline files block the complete patch; existing files must match either the desired
-release or the pinned previous Core commit. Historical commits before this
+absent files may be proposed only when neither the pinned baseline nor the
+adopter's valid manifest declares them. A missing previously adopted path blocks
+the complete patch even without `--previous-core-ref`; genuinely new release
+surfaces remain eligible. Existing files must match the bytes and Git modes of
+either the desired release or the pinned previous Core commit. Historical commits before this
 manifest can establish ancestry. Historical manifests may omit paths added to
 the managed inventory later; the pinned historical tree supplies those baseline
 bytes and modes, while declared hashes and modes remain verified. Target releases
