@@ -19,7 +19,7 @@ function init(repo) { mkdirSync(repo); git(repo, 'init', '-q', '-b', 'main'); gi
 function setup(t) {
   const home = mkdtempSync(join(tmpdir(), 'adopter-test-')); t.after(() => rmSync(home, { recursive: true, force: true }));
   const core = join(home, 'core'); const adopter = join(home, 'adopter'); init(core); init(adopter);
-  for (const path of ['ORCHESTRATOR.md', 'projects.example.yaml', 'scripts/workboard-adopter.mjs', 'scripts/check-workboard-thread-title.mjs', 'scripts/linear-single-writer.mjs', 'workboard-capabilities.json', 'docs/releases/st-024-adopter-fleet-readiness.md', 'skills/workboard-orchestrator/SKILL.md']) put(core, path, `portable fixture ${path}\n`);
+  for (const path of ['README.md', 'CONTRIBUTING.md', 'RELEASE.md', 'ORCHESTRATOR.md', 'projects.example.yaml', 'scripts/workboard-adopter.mjs', 'scripts/check-workboard-thread-title.mjs', 'scripts/linear-single-writer.mjs', 'workboard-capabilities.json', 'docs/releases/st-024-adopter-fleet-readiness.md', 'skills/workboard-orchestrator/SKILL.md']) put(core, path, `portable fixture ${path}\n`);
   put(core, 'workboard-capabilities.json', JSON.stringify({ protocol_version: '1.5.0',
     compatibility: { classification: 'backward-compatible' }, starter_sync: { release: 'ST-024',
       source_reference: 'https://github.com/2xgrowthagency/workboard-core/issues/61',
@@ -167,6 +167,27 @@ test('customized or removed skills and locally removed baseline files block ever
     }
   }
 });
+test('existing adopter removals block without a previous Core ref, including patch output', t => {
+  for (const path of ['scripts/check-workboard-thread-title.mjs', 'skills/workboard-orchestrator/SKILL.md']) {
+    const f = setup(t); adopt(f);
+    unlinkSync(join(f.adopter, path));
+    const r = run(f, 'plan');
+    assert.equal(r.status, 2); assert.equal(r.value.status, 'BLOCKED'); assert.equal(r.value.patch, '');
+    assert.ok(r.value.blockers.includes(`unrecognized_local_removal:${path}`));
+    const patch = spawnSync(process.execPath, [script, 'plan', '--repo', f.adopter, '--core', f.core, '--core-ref', f.ref, '--format', 'patch'], { encoding: 'utf8' });
+    assert.equal(patch.status, 2); assert.equal(patch.stdout, '');
+    assert.equal(run(f, 'check').value.differences.find(d => d.path === path).reason, 'missing');
+  }
+});
+test('new release surfaces remain eligible for an existing adopter with a pinned baseline', t => {
+  const f = setup(t); adopt(f); const previous = f.ref;
+  put(f.core, 'docs/new-surface.md', 'new portable surface\n');
+  put(f.core, MANIFEST, JSON.stringify(generateManifest(f.core), null, 2) + '\n'); f.ref = commit(f.core);
+  const r = run(f, 'plan', ['--previous-core-ref', previous]);
+  assert.equal(r.status, 0, r.stderr);
+  const patch = join(f.home, 'new.patch'); writeFileSync(patch, r.value.patch); git(f.adopter, 'apply', patch);
+  assert.equal(run(f, 'check').value.status, 'PARTIAL_NOT_ACTIVE');
+});
 test('recognized old skills receive separate Workshop proposals and new skills are idempotent', t => {
   const f = setup(t); adopt(f); const previous = f.ref;
   const path = 'skills/workboard-orchestrator/SKILL.md';
@@ -198,6 +219,7 @@ test('pinned release rejects executable mode drift', t => {
 });
 test('complete first adoption satisfies the real capability consumer and requires root evidence', t => {
   const f = setup(t);
+  for (const path of ['README.md', 'CONTRIBUTING.md', 'RELEASE.md']) unlinkSync(join(f.core, path));
   for (const file of generateManifest(root).files) {
     put(f.core, file.path, readFileSync(join(root, file.path)));
     chmodSync(join(f.core, file.path), parseInt(file.mode, 8));
@@ -206,8 +228,10 @@ test('complete first adoption satisfies the real capability consumer and require
   adopt(f);
   const result = spawnSync(process.execPath, [join(f.adopter, 'scripts/check-workboard-capabilities.mjs'), '--repo', f.adopter], { encoding: 'utf8' });
   assert.equal(result.status, 0, result.stdout + result.stderr);
+  const consumers = spawnSync(process.execPath, ['--test', 'tests/upstream-sync.test.mjs', 'tests/task-execution-profile.test.mjs', 'tests/model-routing.test.mjs'], { cwd: f.adopter, encoding: 'utf8' });
+  assert.equal(consumers.status, 0, consumers.stdout + consumers.stderr);
   assert.equal(run(f, 'check', ['--readiness', ready(f)]).value.status, 'CURRENT');
-  for (const path of ['ORCHESTRATOR.md', 'projects.example.yaml']) {
+  for (const path of ['README.md', 'CONTRIBUTING.md', 'RELEASE.md', 'ORCHESTRATOR.md', 'projects.example.yaml']) {
     unlinkSync(join(f.adopter, path));
     const r = run(f, 'check', ['--readiness', ready(f)]);
     assert.equal(r.value.status, 'UPGRADE_REQUIRED'); assert.ok(r.value.differences.some(d => d.path === path));

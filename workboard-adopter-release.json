@@ -21,8 +21,26 @@
   ],
   "files": [
     {
+      "path": "CONTRIBUTING.md",
+      "sha256": "b9d517a58225ed2f2c747bfd01a888bb7acdd873651540f9167ebcf21873929e",
+      "mode": "100644",
+      "delivery": "patch"
+    },
+    {
       "path": "ORCHESTRATOR.md",
       "sha256": "fe83fcd7e1d6b47c5c726b41e127b45c8b18129944b38c9330668cade3c8ee04",
+      "mode": "100644",
+      "delivery": "patch"
+    },
+    {
+      "path": "README.md",
+      "sha256": "2b9b07f9dbef31e35e1d2c359ee254977ed41fff2520ecb7084318b9b123afc3",
+      "mode": "100644",
+      "delivery": "patch"
+    },
+    {
+      "path": "RELEASE.md",
+      "sha256": "3242166dc2527bb8a25591caaae814b3caee2100ad04e77a599f852c33dba5a1",
       "mode": "100644",
       "delivery": "patch"
     },
@@ -172,7 +190,7 @@
     },
     {
       "path": "docs/releases/st-024-adopter-fleet-readiness.md",
-      "sha256": "906edefe5c0c954352917c1b69639cdb3bdc82bbb90c003d93f8c1a36f49cfe9",
+      "sha256": "a7a71dd35335527f156104b531864f0e7786964cb4e8c0a99f33e8bd30458239",
       "mode": "100644",
       "delivery": "patch"
     },
@@ -310,7 +328,7 @@
     },
     {
       "path": "scripts/workboard-adopter.mjs",
-      "sha256": "591ebc2671dada1d3af18de80fd3df1f9dc772f4c6c61319eeb48d24f3bdb33d",
+      "sha256": "29a1df2fafaa9b4a7bafb140e377b526506d3b70334c6527812278945bf8c73f",
       "mode": "100644",
       "delivery": "patch"
     },
@@ -364,7 +382,7 @@
     },
     {
       "path": "tests/adopter-readiness.test.mjs",
-      "sha256": "dc36c6e2ca2333b9c30a29c66f9eef1058b2d033386c509e4fb939604a87e54a",
+      "sha256": "343abc7d9603117d2458d53c2d52b71424a95226deb651f0e1a1498ed4ff24b6",
       "mode": "100644",
       "delivery": "patch"
     },
@@ -520,7 +538,7 @@
     },
     {
       "path": "workboard-capabilities.json",
-      "sha256": "6d96469d4d894c8321daa666fa91602b53a0024e8083f40813d6e2d62eed650e",
+      "sha256": "edfd374b9eade56cb0464efd6808e92ed239113bd52590dbde4aebc4b4731b9b",
       "mode": "100644",
       "delivery": "patch"
     }

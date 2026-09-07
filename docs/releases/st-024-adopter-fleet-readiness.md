@@ -16,7 +16,11 @@ semantics remain unchanged. No packet fields are added.
 Pin the previous Core commit: local bytes must equal that baseline or the desired
 release. Unknown edits and removed surfaces require reviewed migration. New
 adopters use disposable fixtures and stay partial until prerequisites pass.
-Skills use Workshop; the planner never edits installed copies.
+Skills use Workshop; the planner never edits installed copies. Missing paths
+already declared by an adopter manifest block the complete proposal even without
+a previous Core reference; first adoption and genuinely new release paths remain
+eligible. The portable inventory includes README.md, CONTRIBUTING.md and
+RELEASE.md so adoption delivers the root documentation its consumers require.
 
 Keep the public backlink, manifest digest, Core commits and adopter PR head in
 the private migration receipt. Roll back with a reviewed revert to the adopter

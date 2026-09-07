@@ -21,7 +21,7 @@ function keys(value, expected, label) {
   requireThat(Object.keys(value).sort().join('|') === [...expected].sort().join('|'), `${label}: missing or unknown fields`);
 }
 function managedPath(path) {
-  return ['workboard-capabilities.json', 'ORCHESTRATOR.md', 'projects.example.yaml'].includes(path) || (typeof path === 'string'
+  return ['README.md', 'CONTRIBUTING.md', 'RELEASE.md', 'workboard-capabilities.json', 'ORCHESTRATOR.md', 'projects.example.yaml'].includes(path) || (typeof path === 'string'
     && /^(scripts|schemas|docs|templates|tests|skills)\/[a-zA-Z0-9_./-]+$/.test(path)
     && path.split('/').every(part => part && part !== '.' && part !== '..')
     && /\.(mjs|json|md|yaml)$/.test(path));
@@ -176,6 +176,9 @@ export function planUpgrade({ repo, release, previous, attestation }) {
   repo = root(repo);
   const report = inspectAdopter({ repo, release, attestation });
   const blockers = report.blockers.filter(b => b !== 'missing_adopter_manifest');
+  const adopterManifest = bytesAt(repo, MANIFEST);
+  const adoptedPaths = adopterManifest && !blockers.includes('invalid_adopter_manifest')
+    ? new Set(parseJSON(adopterManifest.toString()).files.map(file => file.path)) : new Set();
   const workshop = [];
   const patches = [];
   if (previous) for (const path of previous.files.keys()) if (!release.files.has(path)) blockers.push(`removed_surface_requires_migration:${path}`);
@@ -186,7 +189,7 @@ export function planUpgrade({ repo, release, previous, attestation }) {
     const baseline = previous?.files.get(path);
     const oldMode = before === null ? null : modeAt(repo, path);
     const newMode = release.modes.get(path);
-    if (before === null && baseline) { blockers.push(`unrecognized_local_removal:${path}`); continue; }
+    if (before === null && (baseline || adoptedPaths.has(path))) { blockers.push(`unrecognized_local_removal:${path}`); continue; }
     const recognized = before === null
       || (before.equals(after) && oldMode === newMode)
       || (baseline && before.equals(baseline) && oldMode === previous.modes.get(path));
