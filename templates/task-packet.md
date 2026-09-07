@@ -1,5 +1,7 @@
 ---
 packet_schema_version: 2
+# Adopter upgrades retain v2; attach pinned Core conformance and migration proof
+# using existing evidence fields. Code availability never grants activation.
 id: YYYYMMDD-001-short-slug
 status: ready
 priority: P2

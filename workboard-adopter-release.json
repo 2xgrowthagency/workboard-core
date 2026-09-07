@@ -1,0 +1,434 @@
+{
+  "schema_version": 1,
+  "release": "ST-024",
+  "protocol_version": "1.5.0",
+  "source_reference": "https://github.com/2xgrowthagency/workboard-core/issues/61",
+  "compatibility": "backward-compatible",
+  "migrations": [
+    "docs/releases/st-024-adopter-fleet-readiness.md"
+  ],
+  "adopter_owned": [
+    "projects.yaml",
+    "AGENTS.md",
+    ".env*",
+    ".local/",
+    "tasks/",
+    "adopter/",
+    "scheduler state",
+    "credentials",
+    "identity",
+    "worker history"
+  ],
+  "files": [
+    {
+      "path": "docs/adopter-readiness.md",
+      "sha256": "05af8d77b42fa66ef0e985b2d4e2dcc94a7f401e5712550418eff5d56e6d1950",
+      "delivery": "patch"
+    },
+    {
+      "path": "docs/automation-examples.md",
+      "sha256": "865549c13144b29f06722a287c21a3aa78e7a63036f303f41635ba4b06d556fa",
+      "delivery": "patch"
+    },
+    {
+      "path": "docs/capability-manifest.md",
+      "sha256": "526f57b30cb29a148ee8434a8e1d66bab488c3d4082112a1fafee5d57b881b08",
+      "delivery": "patch"
+    },
+    {
+      "path": "docs/codex-task-finalization.md",
+      "sha256": "b841180714e0aea8c623769232ff37b4c5e957134e7c681ca9d127154f04e9ac",
+      "delivery": "patch"
+    },
+    {
+      "path": "docs/dependency-promotion.md",
+      "sha256": "d82098e9f9a08e4a9b02e2b5103f0e12573554c662d4e346bb1c8adbb8100bf6",
+      "delivery": "patch"
+    },
+    {
+      "path": "docs/github-codex-review-gate.md",
+      "sha256": "ad417321993ccc041bdbc57a3b2d494df6f90ba56beedede9010c3ae638e8846",
+      "delivery": "patch"
+    },
+    {
+      "path": "docs/intake-guide.md",
+      "sha256": "f57c2b72fd580d047bc2921c648402bc89b321c111b2bda5aee56a77eb0fa923",
+      "delivery": "patch"
+    },
+    {
+      "path": "docs/known-issues-and-recovery.md",
+      "sha256": "510381baf3ecac90480c680409babcaa1a208286b9df6921056578c1fc288c4b",
+      "delivery": "patch"
+    },
+    {
+      "path": "docs/linear-single-writer.md",
+      "sha256": "80e8ac2f0e901cbf070a3b46c25c3be65d22af59f1ff955e1b91dd45c58df994",
+      "delivery": "patch"
+    },
+    {
+      "path": "docs/live-task-visibility.md",
+      "sha256": "98fc5d231bba9ba50d1a92cac202948c8098838ec72f8820f0fb4f1abe80b67a",
+      "delivery": "patch"
+    },
+    {
+      "path": "docs/new-workboard-initialization.md",
+      "sha256": "6c285e04f6d445dddc97a34daae6f73c0c7311c7caa23e7a15576915488a214a",
+      "delivery": "patch"
+    },
+    {
+      "path": "docs/orchestrator-protocol.md",
+      "sha256": "aa2e7b98462f5e80412631b1baa5d779c0fc8632d5c1d509d72c4cfdc0d5e234",
+      "delivery": "patch"
+    },
+    {
+      "path": "docs/pending-improvements.md",
+      "sha256": "9ef6657bc02bda61166462a744d32b18499dec761eace03233fd3bb7215114cd",
+      "delivery": "patch"
+    },
+    {
+      "path": "docs/releases/st-011-task-packet-metadata.md",
+      "sha256": "ea5ef76c6df4309322800cc1ddded76696e763bc5e0b48ce69494eaeef0be2cb",
+      "delivery": "patch"
+    },
+    {
+      "path": "docs/releases/st-013-upstream-synchronization.md",
+      "sha256": "bfdf2ec8723d9798d94004b55db167249a1d2e7b7552e6db9620f0a48139395d",
+      "delivery": "patch"
+    },
+    {
+      "path": "docs/releases/st-014-capability-manifest.md",
+      "sha256": "9072767fae892279db0e157982ba02a9e6085caeda8e0d02861a26be59ae072a",
+      "delivery": "patch"
+    },
+    {
+      "path": "docs/releases/st-016-execution-environment-routing.md",
+      "sha256": "f09ec85062247e5fc79bad089af2ffcc4d0c44951f209d2b1c61dfeb1a8fb153",
+      "delivery": "patch"
+    },
+    {
+      "path": "docs/releases/st-017-task-execution-profile.md",
+      "sha256": "80434286deeb547117fb70c59a430297a5544503cb3b76395611b3c8ded9967d",
+      "delivery": "patch"
+    },
+    {
+      "path": "docs/releases/st-018-cloud-dispatch.md",
+      "sha256": "7b1d1b2a5caabb974ebf1404b8dda1a5f973164e63db7c3819a69b6b93f099c5",
+      "delivery": "patch"
+    },
+    {
+      "path": "docs/releases/st-019-linear-trust-boundaries.md",
+      "sha256": "6f16c7027c4c8c4667c6933dc76b25a32f3e4014eb31b413b468ec6d13f74913",
+      "delivery": "patch"
+    },
+    {
+      "path": "docs/releases/st-020-live-worker-capacity.md",
+      "sha256": "4a421b22df80048c75aed49de46e1d604392ea10fb985186bc495be3045eed6b",
+      "delivery": "patch"
+    },
+    {
+      "path": "docs/releases/st-021-shared-control-cycle.md",
+      "sha256": "4e53758a908cf27ef294554261c673b8e605ebde33dc41268a19b8c1a370fe86",
+      "delivery": "patch"
+    },
+    {
+      "path": "docs/releases/st-022-linear-ready-ordering.md",
+      "sha256": "b3096e69f52f4e24d770688f64508192a637aa417a2fca42eeffb35498881221",
+      "delivery": "patch"
+    },
+    {
+      "path": "docs/releases/st-023-linear-issue-first-thread-titles.md",
+      "sha256": "0c965bcd1ec133c29773914b47814738d3d4d32c7436e2d741df17d91cdac89f",
+      "delivery": "patch"
+    },
+    {
+      "path": "docs/releases/st-024-adopter-fleet-readiness.md",
+      "sha256": "906edefe5c0c954352917c1b69639cdb3bdc82bbb90c003d93f8c1a36f49cfe9",
+      "delivery": "patch"
+    },
+    {
+      "path": "docs/task-packet-schema.md",
+      "sha256": "7556e86b1342dfa9b4e9a69a7fd5d8bf4ab129e34504355de99e1f03aa8554f7",
+      "delivery": "patch"
+    },
+    {
+      "path": "docs/team-onboarding.md",
+      "sha256": "d963ac51dc2a124908dbc00bc8efc460960da29800dc920e7fbc3f15d32edd1f",
+      "delivery": "patch"
+    },
+    {
+      "path": "docs/upstream-synchronization.md",
+      "sha256": "cc5c5f77dabb7ba1bde40f3547135f55bb241c9815eb16eb146134544f47b1b6",
+      "delivery": "patch"
+    },
+    {
+      "path": "schemas/workboard-capabilities.schema.json",
+      "sha256": "4dccb47b9d4481485b47aacfab8929d0a7cebf32c983401054b203fe73c7a870",
+      "delivery": "patch"
+    },
+    {
+      "path": "scripts/check-model-routing.mjs",
+      "sha256": "4bb252c27269a42c0db1de1977fdc11b1513ac01d35b55100bc52a6fea546971",
+      "delivery": "patch"
+    },
+    {
+      "path": "scripts/check-task-creation-recovery.mjs",
+      "sha256": "457817ceb388b40139e6f701bb91dab4d83cf900181c57bde8736c268b48b627",
+      "delivery": "patch"
+    },
+    {
+      "path": "scripts/check-task-execution-profile.mjs",
+      "sha256": "e77463c5637a4f19c9c20f75e2c2b28886b1d75c62e4223bdb29641a1794419d",
+      "delivery": "patch"
+    },
+    {
+      "path": "scripts/check-task-packet.mjs",
+      "sha256": "168eba215fa64c152299b208ac245fe184424c4d58a85f31570ca2d22bbc719b",
+      "delivery": "patch"
+    },
+    {
+      "path": "scripts/check-upstream-sync.mjs",
+      "sha256": "b22ff0109c3bae48ae7d18dbea1314a3c93fa9e6a8e3d387a1cdd42262d5b60f",
+      "delivery": "patch"
+    },
+    {
+      "path": "scripts/check-workboard-callback.mjs",
+      "sha256": "d373059bc28285f8eaada197285708984d45c98758dfc0d00c5d2cc327a1a0dd",
+      "delivery": "patch"
+    },
+    {
+      "path": "scripts/check-workboard-capabilities.mjs",
+      "sha256": "762851339a41abfdac645ac82ef7131f1a2369770fe582107888bcb4494d2d6d",
+      "delivery": "patch"
+    },
+    {
+      "path": "scripts/check-workboard-closeout.mjs",
+      "sha256": "5e20d220791de0bf2641f9695066812488ea6d6a31a74d7bd5541e769ed2d1b1",
+      "delivery": "patch"
+    },
+    {
+      "path": "scripts/check-workboard-git-preflight.mjs",
+      "sha256": "44e0c7d7d92d3a28cc45a0003dad16aa028b04eca621ac24eac2707908efe73d",
+      "delivery": "patch"
+    },
+    {
+      "path": "scripts/check-workboard-promotions.mjs",
+      "sha256": "1b98530508a9999ea569791e2e554b808ce29be3a66a0b4c0925aebecb103474",
+      "delivery": "patch"
+    },
+    {
+      "path": "scripts/check-workboard-queue.mjs",
+      "sha256": "1610fecebad51dd75e96a17fe2f63963cb9b64d0147db82a098c57086fdc93de",
+      "delivery": "patch"
+    },
+    {
+      "path": "scripts/check-workboard-target-lock.mjs",
+      "sha256": "4bab858167ee4fc4372ea0ac23e2a3a51cd5531727fbfcd505f51759259b6960",
+      "delivery": "patch"
+    },
+    {
+      "path": "scripts/check-workboard-thread-title.mjs",
+      "sha256": "d290148f690a683ff14453be63f31ca285eb5c93f48fe54054a1424607f3a0ba",
+      "delivery": "patch"
+    },
+    {
+      "path": "scripts/classify-codex-task-finalizer.mjs",
+      "sha256": "a198846f2d02feb54b0053373946b2470f1fc5c1a975b541230b1bb8f69a6392",
+      "delivery": "patch"
+    },
+    {
+      "path": "scripts/linear-single-writer.mjs",
+      "sha256": "a58f0361ea5019b1e70c95b7c072ca3417fe066474429bdeb5f4797f252f4d5f",
+      "delivery": "patch"
+    },
+    {
+      "path": "scripts/reconcile-task-creation-recovery.mjs",
+      "sha256": "d5c524f651ca490bbc031486a7dfefcd527d11ce9c9bbade83367189795adc9b",
+      "delivery": "patch"
+    },
+    {
+      "path": "scripts/task-link.mjs",
+      "sha256": "16e34e3b9af16c7f97f60614f2047a9f00defb8f23a11fea708c7931d1d0d79b",
+      "delivery": "patch"
+    },
+    {
+      "path": "scripts/workboard-adopter.mjs",
+      "sha256": "673288d6c161fdba4e64c39e230ea2f94c65c3cee16f46993f8298e0e67353d8",
+      "delivery": "patch"
+    },
+    {
+      "path": "skills/workboard-control-cycle/SKILL.md",
+      "sha256": "3c7a97efc9f5da2dc72a1efc3d4aa567a733fdf19764e867cb6495ac081290b8",
+      "delivery": "workshop"
+    },
+    {
+      "path": "skills/workboard-orchestrator/SKILL.md",
+      "sha256": "96160ef38b7c83825044fe363581c29dd3b09d1f1ce498eafcda0d3710af70ae",
+      "delivery": "workshop"
+    },
+    {
+      "path": "templates/adopter-readiness.json",
+      "sha256": "9318fa48a037ec34cc7b969d79b36edb153e333ec3ceea2236d0f4c9b20f1f12",
+      "delivery": "patch"
+    },
+    {
+      "path": "templates/local-operator-setup.md",
+      "sha256": "2797358df128fcec4593bfb02d04ccad9b2b600fcadd7b8d3279a95f0db9c337",
+      "delivery": "patch"
+    },
+    {
+      "path": "templates/task-creation-recovery.md",
+      "sha256": "eb151044d9245d20ec41a06c9d4c61398034d97db2680d0463837a9c2d464b9b",
+      "delivery": "patch"
+    },
+    {
+      "path": "templates/task-packet.md",
+      "sha256": "09d09784defd0d943044f10178398dfba83dd95a62a60055a3e63dc74eb8051f",
+      "delivery": "patch"
+    },
+    {
+      "path": "templates/upstream-sync-record.md",
+      "sha256": "e52b0e801f78c21e4257ef05b8c759f59fd8c1796e1c7ad88ec60785083d317c",
+      "delivery": "patch"
+    },
+    {
+      "path": "templates/workboard-initialization-record.md",
+      "sha256": "1bc233ef04a35d58120924e660a5dec6ceefb6e30c5edec548856eae4c42d3ce",
+      "delivery": "patch"
+    },
+    {
+      "path": "tests/adopter-readiness.test.mjs",
+      "sha256": "0970e13b8679dc74f486938b6c7bb2cab82184b2809e3155a5e49a3b63e77ca2",
+      "delivery": "patch"
+    },
+    {
+      "path": "tests/check-task-packet.test.mjs",
+      "sha256": "7e23776285b96c79f6ed62ee040fbd04b9366f4838002a5604b353147230658e",
+      "delivery": "patch"
+    },
+    {
+      "path": "tests/check-workboard-callback.test.mjs",
+      "sha256": "1b60aef5d6ecc77b6f3d75f60c659b11e76e74d7fafe82fbd7c01473de8c1520",
+      "delivery": "patch"
+    },
+    {
+      "path": "tests/check-workboard-git-preflight.test.mjs",
+      "sha256": "23d0135a44a2caeb5ca3abdbfe46c30cd7f235dac0411f0d371605ab1714f55d",
+      "delivery": "patch"
+    },
+    {
+      "path": "tests/check-workboard-promotions.test.mjs",
+      "sha256": "c83348ecefbb008fd3057ac561dbc318c08b3cfdd729299c17b4feb1b0f89a94",
+      "delivery": "patch"
+    },
+    {
+      "path": "tests/check-workboard-queue.test.mjs",
+      "sha256": "f57f2dc19feb255e9bd404656997f08bb691c6b74904785649acc98619f8f1d9",
+      "delivery": "patch"
+    },
+    {
+      "path": "tests/check-workboard-target-lock.test.mjs",
+      "sha256": "e8a7830f8622f34a6b3b9d17e2d54db21bbeaca52234e94bd279c47b35d5a470",
+      "delivery": "patch"
+    },
+    {
+      "path": "tests/codex-task-finalization-docs.test.mjs",
+      "sha256": "ea5b87c4c47bcf68e9a23ea721d32c595928cdeb0114dd55f5b69273d0eebfe5",
+      "delivery": "patch"
+    },
+    {
+      "path": "tests/codex-task-finalizer.test.mjs",
+      "sha256": "de77892a82fed062d04e93728b6ebc21661220c826cfa11a4bf555f5a05cec5a",
+      "delivery": "patch"
+    },
+    {
+      "path": "tests/dependency-promotion-docs.test.mjs",
+      "sha256": "4401d87dbd315e052d117deb806225ea329e29c69a589a3fdbe60f26ac15447b",
+      "delivery": "patch"
+    },
+    {
+      "path": "tests/execution-environment-routing.test.mjs",
+      "sha256": "86cd51681b4034ebdae1a74390c64b5e4e44773db24e8dd6b825e49f0e3b5293",
+      "delivery": "patch"
+    },
+    {
+      "path": "tests/git-preflight-docs.test.mjs",
+      "sha256": "1efa191c056229f70eaad2384ac752cc5091a7d2793108b05c5293031795413c",
+      "delivery": "patch"
+    },
+    {
+      "path": "tests/github-codex-review-gate.test.mjs",
+      "sha256": "92b6177389fa9f62a072bb58a231063a79b3cb80aa3ffdb37346f9cf133636e8",
+      "delivery": "patch"
+    },
+    {
+      "path": "tests/integrated-routing-lifecycle.test.mjs",
+      "sha256": "c02412c354e844ef8294a222837f33f5c26c7b3fb53554b3d6c926c90f5f3fe1",
+      "delivery": "patch"
+    },
+    {
+      "path": "tests/known-issues-recovery-docs.test.mjs",
+      "sha256": "655e2b28388ee558e70bed1474f842830b643f4445f6b3c1dd131b00c264b089",
+      "delivery": "patch"
+    },
+    {
+      "path": "tests/linear-single-writer.test.mjs",
+      "sha256": "d1c2c47fe5eb86d86680b563a200aa3449f4ca65cc2a4522143b19f547d9b087",
+      "delivery": "patch"
+    },
+    {
+      "path": "tests/live-task-visibility-docs.test.mjs",
+      "sha256": "335b6d8b460134c09fa22966d90fa793f3f6af826547bddcd42f643414ff67a5",
+      "delivery": "patch"
+    },
+    {
+      "path": "tests/model-routing.test.mjs",
+      "sha256": "3daf46eedbf7763956a7b7d0a1e4994beb9a2db8201e6319cefdea2ce7af97e3",
+      "delivery": "patch"
+    },
+    {
+      "path": "tests/new-workboard-initialization.test.mjs",
+      "sha256": "47192ded348a480d7fa0defed589a419dcfc434758f23bd47b3355fc1b41effd",
+      "delivery": "patch"
+    },
+    {
+      "path": "tests/task-creation-recovery.test.mjs",
+      "sha256": "c4d690d8ba9ed2e90c027f13bf8862dc2ff3a9fc5076efee38843eb7e1bbfc41",
+      "delivery": "patch"
+    },
+    {
+      "path": "tests/task-execution-profile.test.mjs",
+      "sha256": "fe3e1fde5dc7a60ce7cf086db0954fa86d4d4838b40d6b47c7cb51ce01b517f2",
+      "delivery": "patch"
+    },
+    {
+      "path": "tests/upstream-sync.test.mjs",
+      "sha256": "944610229b377c69ee32ab7b17e305c3a4269b0d775aaea1722e572491805133",
+      "delivery": "patch"
+    },
+    {
+      "path": "tests/workboard-capabilities.test.mjs",
+      "sha256": "7c8447c02ec2afbd8be86e7d69c33f0f8acd8aa616b8ab763fb2b3c302bdbbe0",
+      "delivery": "patch"
+    },
+    {
+      "path": "tests/workboard-closeout.test.mjs",
+      "sha256": "cf3155b4b527f5c03d2178e98f0465e7f3c19688154422816b5639458f669c8b",
+      "delivery": "patch"
+    },
+    {
+      "path": "tests/workboard-control-cycle.test.mjs",
+      "sha256": "02d73e3cc5ad699a8e93113a473410fcd944e5aa8859cfeee7db74bab5bca130",
+      "delivery": "patch"
+    },
+    {
+      "path": "tests/workboard-thread-title.test.mjs",
+      "sha256": "b5319b11741d11211f528b6783b7ce5370d8b80d0a10ca9a5162efd68ceac319",
+      "delivery": "patch"
+    },
+    {
+      "path": "workboard-capabilities.json",
+      "sha256": "6fba82fea3907ae204b7a8b08f87ee3b66d1e31050153e9a015fdb1d039f51b5",
+      "delivery": "patch"
+    }
+  ]
+}

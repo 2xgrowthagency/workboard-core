@@ -55,7 +55,7 @@ test('first task is a bounded dispatch smoke with duplicate and callback proof',
 test('README points new operators to the consolidated initialization guide', () => {
   assert.match(readme, /docs\/new-workboard-initialization\.md/);
   assert.match(readme, /docs\/team-onboarding\.md/);
-  assert.match(readme, /protocol `1\.4\.0`/);
+  assert.match(readme, /protocol `1\.5\.0`/);
 });
 
 test('team onboarding separates training from production activation', () => {

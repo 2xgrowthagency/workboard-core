@@ -1,0 +1,21 @@
+{
+  "schema_version": 1,
+  "core_commit": "0000000000000000000000000000000000000000",
+  "identity": "unknown",
+  "authority": "unknown",
+  "scheduler": "disabled",
+  "checks": {
+    "accountable_operator": "missing",
+    "repository_ownership": "missing",
+    "github_auth": "missing",
+    "linear_membership": "missing",
+    "operator_executor_labels": "missing",
+    "project_host_binding": "missing",
+    "private_adapter": "missing",
+    "adapter_certification": "missing",
+    "manual_claim_canary": "missing",
+    "manual_callback_canary": "missing",
+    "independent_qa": "missing",
+    "rollback_plan": "missing"
+  }
+}
